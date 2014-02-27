@@ -103,6 +103,13 @@ PRODUCT_PACKAGES += \
 	libloc_api_v02 \
 	libgps.utils \
 	gps.msm8974
+	
+# Extended media support
+PRODUCT_PACKAGES += \
+    qcmediaplayer
+
+PRODUCT_BOOT_JARS += qcmediaplayer
+
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
