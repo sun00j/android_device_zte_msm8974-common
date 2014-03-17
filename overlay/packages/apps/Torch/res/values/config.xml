@@ -21,4 +21,5 @@
      for different hardware and product builds. -->
 <resources>
     <bool name="useCameraInterface">true</bool>
+<!--    <string name="flashDevice">/sys/class/leds/torch-light/brightness</string> -->
 </resources>

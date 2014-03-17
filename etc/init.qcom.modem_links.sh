@@ -32,13 +32,6 @@
 PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
-# for fast run Bluetooth check MAC address is write complete.
-# if not up a flag to disable hot hotoff (26-12-2012 ZTEMT peng.qin5@zte.com.cn)
-if [ -f /persist/macaddr ]; then
-rm -rf /data/property/persist.service.check.addr
-else
-setprop ro.qualcomm.bt.address false
-fi
 # Check for images and set up symlinks
 cd /firmware/image
 
