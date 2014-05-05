@@ -21,33 +21,17 @@
 
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
-# Prebuilt
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/preinstall/RootExplorer.apk:system/app/RootExplorer.apk
-	
-# bootanimation
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/preinstall/bootanimation.zip:system/media/bootanimation.zip
-	
-# Preinstall
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/etc/preinstall.sh:root/sbin/preinstall.sh \
-	
 # App
 PRODUCT_PACKAGES += \
-    PinyinIME \
-    FileExplorer \
-    MySoundRecorder
+    PinyinIME
 	
 # Spn config
-#PRODUCT_COPY_FILES += \
-#	$(LOCAL_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml
 	
-#PRODUCT_COPY_FILES += \
-#	$(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
 	
-#PRODUCT_PACKAGES += \
-#	Launcher3
 	
 # Live Wallpapers
 PRODUCT_PACKAGES += \
@@ -68,16 +52,18 @@ PRODUCT_PACKAGES += \
 	
 
 PRODUCT_PACKAGES += \
-	audio_policy.msm8974 \
 	audio.primary.msm8974 \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
+	tinymix \
+	audiod \
+	audio_policy.msm8974 \
 	libaudio-resampler \
 	libqcomvisualizer \
     libqcomvoiceprocessing \
-	tinymix
-    
+	
+	
 # Omx
 PRODUCT_PACKAGES += \
     libOmxAacEnc \
@@ -92,19 +78,26 @@ PRODUCT_PACKAGES += \
     libdashplayer \
     libdivxdrmdecrypt \
     libmm-omxcore \
-    libstagefrighthw
+    libstagefrighthw \
+	libtilerenderer \
+	libI420colorconvert
 
 # Audio Policy Config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
+	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+	$(LOCAL_PATH)/configs/mixer_paths.xml:system/etc/mixer_paths.xml
 	
 # Wifi        
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	$(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-	$(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	$(LOCAL_PATH)/configs/nvram.txt:system/etc/wifi/nvram.txt
+	$(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+	$(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+	$(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	$(LOCAL_PATH)/wifi/nvram.txt:system/etc/wifi/nvram.txt \
+#	$(LOCAL_PATH)/wifi/fw_bcmdhd_apsta.bin:system/vendor/firmware/fw_bcmdhd_apsta.bin \
+#	$(LOCAL_PATH)/wifi/fw_bcmdhd_p2p.bin:system/vendor/firmware/fw_bcmdhd_p2p.bin \
+#	$(LOCAL_PATH)/wifi/fw_bcmdhd_apsta.bin:system/vendor/firmware/fw_bcmdhd.bin\
+#	$(LOCAL_PATH)/wifi/fw_mfgtest.bin:system/vendor/firmware/fw_mfgtest.bin \
     
 # libxml2 is needed for camera
 PRODUCT_PACKAGES += libxml2
@@ -124,25 +117,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.msm8974
 
-# GPS
-#PRODUCT_PACKAGES += \
-#	libloc_adapter \
-#	libloc_eng \
-#	libloc_api_v02 \
-#	libgps.utils \
-#	gps.msm8974
-	
+# GPS	
 PRODUCT_PACKAGES += \
 	gps.msm8974 \
+	libgps.utils \
 	libloc_adapter \
     libloc_eng \
-    libloc_api_v02 \
-    libloc_ds_api \
-    libloc_core \
-    libizat_core \
-    libgeofence \
-    libgps.utils \
-    flp.msm8974
+
+# GPS configuration
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
+	$(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
+	$(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+	
 	
 # Extended media support
 PRODUCT_PACKAGES += \
@@ -151,17 +138,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += qcmediaplayer
 
 # FM radio
-PRODUCT_PACKAGES += \
-	qcom.fmradio \
-	libqcomfm_jni \
-	FM2 \
+#PRODUCT_PACKAGES += \
+#	qcom.fmradio \
+#	libqcomfm_jni \
+#	FM2 \
 	
-PRODUCT_BOOT_JARS += qcom.fmradio
-
-# GPS configuration
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
-	$(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+#PRODUCT_BOOT_JARS += qcom.fmradio
 
 
 # for off charging mode
@@ -171,31 +153,14 @@ PRODUCT_PACKAGES += \
 	
 # etc configs
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/hosts:system/etc/hosts \
-	$(LOCAL_PATH)/configs/lowi.conf:system/etc/lowi.conf \
-	$(LOCAL_PATH)/configs/quipc.conf:system/etc/quipc.conf \
-	$(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
-	$(LOCAL_PATH)/configs/wfdconfig1280_720.xml:system/etc/wfdconfig1280_720.xml \
-	$(LOCAL_PATH)/configs/wfdconfig640_480.xml:system/etc/wfdconfig640_480.xml \
-	$(LOCAL_PATH)/configs/wfdconfig800_480.xml:system/etc/wfdconfig800_480.xml \
-	$(LOCAL_PATH)/configs/wfdconfig960_540.xml:system/etc/wfdconfig960_540.xml \
-	$(LOCAL_PATH)/configs/wfdconfig.xml:system/etc/wfdconfig.xml \
-	$(LOCAL_PATH)/configs/xtra_root_cert.pem:system/etc/xtra_root_cert.pem \
-	$(LOCAL_PATH)/configs/xtwifi.conf:system/etc/xtwifi.conf
-	
-# Haptics
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/haptics_A2H.conf:system/etc/haptics_A2H.conf \
-	$(LOCAL_PATH)/configs/RingHaptics.xml:system/etc/RingHaptics.xml
+	$(LOCAL_PATH)/configs/hosts:system/etc/hosts
 
 # Media
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
 	$(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-	$(LOCAL_PATH)/configs/ds1-default.xml:system/etc/ds1-default.xml 
-	
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/qosmgr_rules.xml:system/etc/qosmgr_rules.xml
+
+
 
 # Qcom scripts
 PRODUCT_COPY_FILES += \
@@ -203,8 +168,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/etc/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
 	$(LOCAL_PATH)/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
 	$(LOCAL_PATH)/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
-	$(LOCAL_PATH)/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
-	$(LOCAL_PATH)/etc/init.qcom.thermal_conf.sh:system/etc/init.qcom.thermal_conf.sh
+	$(LOCAL_PATH)/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
 	
 	
 # These are the hardware-specific features
@@ -230,7 +194,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 
-ifeq ($(BOARD_HAVE_NFC ),true)
+ifeq ($(BOARD_HAVE_NFC),true)
 
 # NFC packages msm8974-common
 PRODUCT_PACKAGES += \
@@ -264,7 +228,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml
     
-      
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += \
@@ -280,7 +243,8 @@ PRODUCT_PACKAGES += \
     qrngp
 
 PRODUCT_PACKAGES += \
-	libemoji 
+	libemoji \
+	libion
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -288,13 +252,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
-	wifi.supplicant_scan_interval=60 \
-    ro.sys.umsdirtyratio=50
+	wifi.supplicant_scan_interval=15 \
+    ro.sys.umsdirtyratio=20
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
-
+	persist.sys.usb.config=mass_storage
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -304,10 +267,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0
-
-# HDMI
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.demo.hdmirotationlock=false
 
 # Time
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -326,13 +285,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
+	persist.audio.handset.mic.type=digital \
 	persist.audio.fluence.voicecall=true \
 	persist.audio.dualmic.config=endfire \
+	persist.audio.fluence.voicerec=true \
+	persist.audio.fluence.speaker=false \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     af.resampler.quality=4 \
     audio.offload.buffer.size.kb=32 \
-    audio.offload.gapless.enabled=true \
+    audio.offload.gapless.enabled=false \
     av.offload.enable=true
     
 # Do not power down SIM card when modem is sent to Low Power Mode.
@@ -342,6 +304,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.call_ring.multiple=0
+	
+# Prefer SPN over PLMN name in nw scan response.
+# This avoids different names to be displayed to the user for same PLMN.
+# RIL uses this property.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.prefer_spn=2
+    
+# update 1x signal strength after 2s
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.radio.snapshot_enabled=1 \
+    persist.radio.snapshot_timer=2
+    
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.radio.use_cc_names=true
 
 
 #Upto 3 layers can go through overlays
@@ -351,8 +327,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.egl.hw=1	\
 	persist.hwc.mdpcomp.enable=true	\
 	debug.mdpcomp.logs=0 \
-#	debug.composition.type=c2d \
-#	dev.pm.dyn_samplingrate=1
+#	debug.composition.type=c2d
 	
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -364,32 +339,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0 \
-#	dalvik.vm.dexopt-data-only=1 \
-#	dalvik.vm.lockprof.threshold=500 \
-#    dalvik.vm.heaputilization=0.25 \
-#    dalvik.vm.heapidealfree=8388608 \
-#    dalvik.vm.heapconcurrentstart=2097152 \
+	ro.kernel.android.checkjni=0
 
 
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
-
-#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
-# These values are still too low and cause cache corruption. Use the hammerhead's
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=72 \
-    ro.hwui.layer_cache_size=48 \
-    ro.hwui.r_buffer_cache_size=8 \
-    ro.hwui.path_cache_size=32 \
-    ro.hwui.gradient_cache_size=1 \
-    ro.hwui.drop_shadow_cache_size=6 \
-    ro.hwui.texture_cache_flushrate=0.4 \
-    ro.hwui.text_small_cache_width=1024 \
-    ro.hwui.text_small_cache_height=1024 \
-    ro.hwui.text_large_cache_width=2048 \
-    ro.hwui.text_large_cache_height=1024
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 $(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
 

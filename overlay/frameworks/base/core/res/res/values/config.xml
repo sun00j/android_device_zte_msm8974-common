@@ -20,16 +20,16 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">false</bool>
+    <bool name="config_animateScreenLights">true</bool>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
     <!-- Default LED on time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOn">500</integer>
+    <integer name="config_defaultNotificationLedOn">1000</integer>
 
     <!-- Default LED off time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOff">2000</integer>
+    <integer name="config_defaultNotificationLedOff">9000</integer>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">true</bool>
@@ -37,20 +37,14 @@
     <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
     <bool name="config_multiColorBatteryLed">true</bool>
     
-    <integer name="config_notificationsBatteryLowARGB">0xff8f8080</integer>
-    <integer name="config_notificationsBatteryMediumARGB">0xffcfc0cf</integer>
-    <integer name="config_notificationsBatteryFullARGB">0xff000f00</integer>
+    <integer name="config_notificationsBatteryLowARGB">0xff880000</integer>
+    <integer name="config_notificationsBatteryMediumARGB">0xffcc0000</integer>
+    <integer name="config_notificationsBatteryFullARGB">0xffff0000</integer>
     <integer name="config_notificationsBatteryLedOn">125</integer>
     <integer name="config_notificationsBatteryLedOff">2875</integer>
 
     <!-- Default color for notification LED is red. -->
-    <color name="config_defaultNotificationColor">#ff00ff00</color>
-
-    <!-- Default LED on time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOn">1000</integer>
-
-    <!-- Default LED off time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOff">3000</integer>
+    <color name="config_defaultNotificationColor">#fff00000</color>
 
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
@@ -106,15 +100,15 @@
     </integer-array>
 
     <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">10</integer>
+    <integer name="config_screenBrightnessDim">3</integer>
 
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">58</integer>
+    <integer name="config_screenBrightnessSettingDefault">48</integer>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">10</integer>
+    <integer name="config_screenBrightnessSettingMinimum">3</integer>
 
     <!-- The duration (in milliseconds) that the radio will scan for a signal
          when there's no network connection. If the scan doesn't timeout, use zero -->
@@ -132,7 +126,7 @@
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>wlan0</item>
+        <item>"wlan0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -219,7 +213,7 @@
         <item>0</item>
         <item>10</item>
         <item>20</item>
-        <item>30</item>
+        <item>25</item>
     </integer-array>
 
     <!-- Vibrator pattern for feedback about touching a virtual key -->
@@ -266,14 +260,14 @@
     <bool name="config_cellBroadcastAppLinks">true</bool>
 
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
-    <integer name="config_shutdownBatteryTemperature">680</integer>
+    <integer name="config_shutdownBatteryTemperature">750</integer>
 
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">7</integer>
 
-    <bool name="config_enableWifiDisplay">false</bool>
+    <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Minimum span needed to begin a touch scaling gesture.
          If the span is equal to or greater than this size, a scaling gesture
@@ -299,10 +293,10 @@
     <bool name="config_enableTorch">true</bool>
 
     <!-- Performance profiles -->
-    <string name="config_perf_profile_prop">sys.perf.profile</string>
+<!--    <string name="config_perf_profile_prop">sys.perf.profile</string>
     <string name="config_perf_profile_default_entry">1</string>
-
-    <bool name="config_lidControlsSleep">false</bool>
+-->
+    <bool name="config_lidControlsSleep">true</bool>
 
     <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
 
@@ -326,14 +320,20 @@
     <bool name="config_showNavigationBar">false</bool>
 
     <!-- Boolean to enable Stylus gestures -->
-    <bool name="config_stylusGestures">true</bool>
+<!--    <bool name="config_stylusGestures">true</bool> -->
 
     <!-- Enable lockscreen translucent decor by default -->
-<!--    <bool name="config_enableLockScreenTranslucentDecor">true</bool> -->
+    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
 
     <!-- Enable translucent decor by default -->
-<!--    <bool name="config_enableTranslucentDecor">true</bool> -->
+    <bool name="config_enableTranslucentDecor">true</bool>
 
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
+
+    <!-- Set to true if the RSSI should always display CDMA signal strength even on EVDO -->
+    <bool name="config_alwaysUseCdmaRssi">true</bool>
+
+    <!-- Wifi driver supports batched scan -->
+<!--    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool> -->
 </resources>

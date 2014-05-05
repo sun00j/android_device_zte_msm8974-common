@@ -151,9 +151,9 @@ static int set_light_buttons(struct light_device_t* dev, struct light_state_t co
     int on = is_lit(state);
     pthread_mutex_lock(&g_lock);
     g_buttons = on;
-    err = write_int(BUTTON_FILE, on?40:0);
+    err = write_int(BUTTON_FILE, on?255:0);
     //err = write_int(RED_LED_MAX_FILE, on?20:100);
-    err = write_int(RED_LED_FILE, on?1:g_backlight?g_red:g_red?g_red:0);
+    err = write_int(RED_LED_FILE, on?7:0);
     pthread_mutex_unlock(&g_lock);
     return err;
 }
@@ -181,7 +181,7 @@ static int set_light_battery(struct light_device_t* dev, struct light_state_t co
     int on = is_lit(state);
     pthread_mutex_lock(&g_lock);
     g_battery = *state;   
-    g_battery.color = on?3:0;
+    g_battery.color = on?3:g_buttons?7:0;
     g_red = g_battery.color;
     ALOGD("set_light_battery color=0x%08x", state->color);
     handle_speaker_battery_locked(dev);
@@ -194,7 +194,7 @@ static int set_light_notifications(struct light_device_t* dev, struct light_stat
     int on = is_lit(state);
     pthread_mutex_lock(&g_lock);
     g_notification = *state; 
-    g_notification.color = on?4:0;
+    g_notification.color = on?4:g_buttons?7:0;
     g_red = g_notification.color;
     ALOGD("set_light_notifications color=0x%08x", state->color);
     handle_speaker_battery_locked(dev);
@@ -212,7 +212,7 @@ static int set_light_attention(struct light_device_t* dev, struct light_state_t 
     } else if (state->flashMode == LIGHT_FLASH_NONE) {
         g_attention = 0;
     }
-    write_int(RED_LED_FILE, brightness?4:0);
+    write_int(RED_LED_FILE, brightness?4:g_buttons?7:0);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }

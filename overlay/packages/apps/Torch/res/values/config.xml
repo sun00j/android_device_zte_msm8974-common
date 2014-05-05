@@ -20,6 +20,13 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <bool name="useCameraInterface">true</bool>
-<!--    <string name="flashDevice">/sys/class/leds/torch-light/brightness</string> -->
+
+    <!-- If there is no sysfs-based control mechanism, enable this -->
+    <bool name="useCameraInterface">false</bool>
+
+    <!-- Full path to the sysfs toggle -->
+    <string name="flashDevice">/sys/class/leds/torch-light/brightness</string>
+
+    <!-- If the device does not support high brightness mode, disable this -->
+    <bool name="hasHighBrightness">false</bool>
 </resources>
